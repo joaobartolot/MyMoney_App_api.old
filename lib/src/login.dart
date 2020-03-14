@@ -11,7 +11,9 @@ class _LoginPageState extends State<LoginPage> {
   var _showPassword = false;
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
-  Future<User> _userResponse;
+
+  Future<User> futureUser;
+  User _user;
 
   @override
   void dispose() {
@@ -92,18 +94,15 @@ class _LoginPageState extends State<LoginPage> {
                           child: Text('Login'),
                           onPressed: () {
                             setState(() {
-                              _userResponse = fetchUser(
+                              futureUser = fetchUser(
                                 _usernameController.text,
                                 _passwordController.text,
                               );
                             });
-
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (context) => HomePage(),
-                            //   ),
-                            // );
+                            futureUser.then((user) {
+                              print(user.name);
+                            });
+                            Navigator.pushNamed(context, '/');
                           },
                         )
                       ],

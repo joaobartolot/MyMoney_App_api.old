@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mymoney_app/src/home.dart';
 import 'src/login.dart';
 
 void main() => runApp(App());
@@ -16,6 +17,7 @@ class App extends StatelessWidget {
       ),
       initialRoute: '/login', // user_logged ? '/' : '/login',
       routes: {
+        '/': (context) => HomePage(),
         '/login': (context) => LoginPage(),
       },
     );
