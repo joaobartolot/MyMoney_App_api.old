@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mymoney_app/src/model/account_model.dart';
+import 'package:mymoney_app/src/repository/account.dart';
 import 'package:mymoney_app/src/widget/menu.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,6 +19,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Animation<Offset> _slideAnimation;
   Animation<double> _menuScaleAnimation;
 
+  Account futureAccount;
+  AccountList _accountList = AccountList();
+
   @override
   void initState() {
     super.initState();
@@ -28,6 +33,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         Tween<double>(begin: 0.5, end: 1).animate(_controller);
     _slideAnimation = Tween<Offset>(begin: Offset(-1, 0), end: Offset(0, 0))
         .animate(_controller);
+    _accountList.fetchAccounts().then((accounts) {
+      futureAccount = accounts;
+    });
   }
 
   @override

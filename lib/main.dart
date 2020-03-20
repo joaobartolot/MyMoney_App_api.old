@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mymoney_app/src/home.dart';
-import 'src/login.dart';
+import 'package:mymoney_app/src/splash_screen.dart';
+import 'package:mymoney_app/src/login.dart';
 
 void main() => runApp(App());
 
 class App extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,9 +15,10 @@ class App extends StatelessWidget {
         primaryColor: Color(0xff0f4c75),
         accentColor: Color(0xff0f4c81),
       ),
-      initialRoute: '/login', // user_logged ? '/' : '/login',
+      initialRoute: '/',
       routes: {
-        '/': (context) => HomePage(),
+        '/': (context) => SplashScreen(),
+        '/home': (context) => HomePage(),
         '/login': (context) => LoginPage(),
       },
     );

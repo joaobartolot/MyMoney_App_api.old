@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mymoney_app/src/home.dart';
-import 'client/user_client.dart';
+import 'package:mymoney_app/src/model/user_model.dart';
+import 'package:mymoney_app/src/repository/authentication.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -13,7 +13,7 @@ class _LoginPageState extends State<LoginPage> {
   final _passwordController = TextEditingController();
 
   Future<User> futureUser;
-  User _user;
+  Authentication _authentication = Authentication();
 
   @override
   void dispose() {
@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
                               vertical: 10.0,
                               horizontal: 20.0,
                             ),
-                            suffixIcon: Icon(Icons.person),
+                            suffixIcon: Icon(Icons.account_circle),
                             labelText: 'Username',
                           ),
                         ),
@@ -93,16 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                           textColor: Colors.white,
                           child: Text('Login'),
                           onPressed: () {
-                            setState(() {
-                              futureUser = fetchUser(
-                                _usernameController.text,
-                                _passwordController.text,
-                              );
-                            });
-                            futureUser.then((user) {
-                              print(user.name);
-                            });
-                            Navigator.pushNamed(context, '/');
+                            authenticateUser();
                           },
                         )
                       ],
@@ -116,11 +107,30 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-}
 
-class LoginController {
-  String _username;
-  String _password;
-
-  void _submit() {}
+  authenticateUser() async {
+    _authentication
+        .fetchUser(_usernameController.text, _passwordController.text)
+        .then((user) {
+      Navigator.pushNamed(context, '/');
+    }).catchError((err) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return new AlertDialog(
+            title: new Text("Something went wrong :("),
+            content: new Text("Error: " + err.toString()),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text("Close"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    });
+  }
 }
