@@ -7,7 +7,7 @@ import 'package:mymoney_app/app_exceptions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiBaseHelper {
-  final String _baseUrl = "http://192.168.5.5:8000/api/";
+  final String _baseUrl = "http://192.168.5.30:8000/api/";
 
   Future<dynamic> get(String url) async {
     var responseJson;
