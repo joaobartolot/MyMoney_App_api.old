@@ -112,7 +112,7 @@ class _LoginPageState extends State<LoginPage> {
     _authentication
         .fetchUser(_usernameController.text, _passwordController.text)
         .then((user) {
-      Navigator.pushNamed(context, '/');
+      Navigator.pushReplacementNamed(context, '/');
     }).catchError((err) {
       showDialog(
         context: context,

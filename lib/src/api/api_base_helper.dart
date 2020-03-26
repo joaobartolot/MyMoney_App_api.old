@@ -7,18 +7,18 @@ import 'package:mymoney_app/app_exceptions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiBaseHelper {
-  final String _baseUrl = "http://192.168.5.30:8000/api/";
+  final String _baseUrl = "http://192.168.5.5:8000/api/";
 
   Future<dynamic> get(String url) async {
     var responseJson;
+
+    var prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString(token_key);
+
     try {
-      var prefs = await SharedPreferences.getInstance();
-      var token = prefs.getString(token_key);
-      Map<String, String> header;
-      if (token != '') header = {'Authorization:': 'Token $token'};
       final response = await http.get(
         _baseUrl + url,
-        headers: header,
+        headers: {HttpHeaders.authorizationHeader: "Token $token"},
       );
       responseJson = _returnResponse(response);
     } on SocketException {

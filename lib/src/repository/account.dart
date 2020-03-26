@@ -6,9 +6,8 @@ class AccountList {
 
   ApiBaseHelper _helper = ApiBaseHelper();
 
-  Future<Account> fetchAccounts() async {
-    final response = await _helper.post(_endpoint);
-
-    return Account.fromJson(response);
+  Future<Accounts> fetchAccounts() async {
+    final response = await _helper.get(_endpoint);
+    return Accounts.fromJson(response);
   }
 }

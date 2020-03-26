@@ -12,9 +12,9 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     UserHelper.userIsLogged().then((isLogged) {
       if (isLogged)
-        Navigator.popAndPushNamed(context, '/home');
+        Navigator.pushReplacementNamed(context, '/home');
       else
-        Navigator.popAndPushNamed(context, '/login');
+        Navigator.pushReplacementNamed(context, '/login');
     });
   }
 

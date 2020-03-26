@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mymoney_app/src/home.dart';
+import 'package:mymoney_app/src/shell.dart';
 import 'package:mymoney_app/src/splash_screen.dart';
 import 'package:mymoney_app/src/login.dart';
 
@@ -18,7 +18,7 @@ class App extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => SplashScreen(),
-        '/home': (context) => HomePage(),
+        '/home': (context) => ShellPage(),
         '/login': (context) => LoginPage(),
       },
     );
